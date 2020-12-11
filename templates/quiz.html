@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>COVID-19 Self Assessment</title>
+  <meta name="description" content="COVID-19">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+</head>
+<h1>COVID-19 Self-Asssessment</h1>
+<form action='/post-assessment' method='POST'>
+    <ol>
+        {% for i in q %}
+            {% if i != cq %}
+                <li>{{i}} <i>Select all that apply</i></li>
+                {% for j in o[i] %}
+                    <input type='checkbox' value='{{j}}' id = '{{i}}' name='{{i}}' /> {{j}} </br>
+                {% endfor %}
+            {% else %}
+                <li>{{i}}</li>
+                {% for j in o[i] %}
+                    <input type='radio' value='{{j}}' id = '{{i}}' name='{{i}}' /> {{j}} </br>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </ol>
+    <input type="submit" value="Submit"/>
+</form>

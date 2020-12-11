@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>Recommedations for COVID-19</title>
+    <meta name="description" content="COVID-19">
+    <meta name="author" content="SitePoint">
+    
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <style>
+        .accordion {
+          background-color: #eee;
+          color: #444;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+          transition: 0.4s;
+        }
+        
+        .active, .accordion:hover {
+          background-color: #ccc; 
+        }
+        
+        .panel {
+          padding: 0 18px;
+          display: none;
+          background-color: white;
+          overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center">
+    <h1>COVID-19 Recommendations</h1>
+    <i>Based on your responses...</i>
+    <button class='accordion'> Getting Tested </button>
+    <div class = 'panel'>
+        {% if goTest %}
+        <p>
+            You either have been in close proximity with someone else who has tested positive for COVID-19 in the past 14 days and/or might
+            be experiencing moderate to severe symptoms. We highly recommend you to go get tested from your closest testing center.
+        </p>
+        <p>
+            Please Refer to the following link to check the closest testing center near you.
+            <a href="{{url_for('inputAddress')}}">Want to get tested for COVID-19? Find your nearest testing center here.</a> <br />
+        </p>
+        {% elif goQuarantine %}
+        <p>
+            You are either experiencing moderate symptoms, or, have been around someone else who has recently tested positive for COVID-19 while feeling assymptomatic.
+            Although getting tested may not be urgent, we highly recommend you quarantining for two weeks and avoiding contact with others until your symptoms lessen (if you have any)
+            just as a safety precaution. Please check out the <i>Tips for Quarantining</i> section below.
+        </p>
+        <p>
+            If you feel like your symptoms worsen or if you would prefer to get tested for confirmation, 
+            Please Refer to the following link to check the closest testing center near you.
+            <a href="{{url_for('inputAddress')}}">Want to get tested for COVID-19? Find your nearest testing center here.</a> <br/>
+        </p>
+        {% else %}
+            <p>
+                It seems like you're fine! Just relax, take a deep breathe, continue to stay safe, and wear your mask!
+                Please refer to the <i>Coping with Stress</i> section to check out some of our mental-positive tips :)
+            </p>
+        {% endif %}
+    </div>
+    <button class='accordion'> Tips for Quarantining </button>
+    <div class ='panel'>
+        {% if goTest %}
+        <p>
+            In the process of getting tested (before and after), we highly recommend you to quarantine and isolate yourself from others to prevent the spread of the virus until further notice. 
+            To quarantine, try to stay indoors as much as possible and avoid crowded, populated, or high-risk areas (mall, restaurants, gym, etc...). Remember to wear your mask! Wearing your mask
+            is a sign of courtesy and consideration to others' safety and health. By wearing your mask, you are reducing the spread of COVID to others!
+        </p>
+        {% elif goQuarantine %}
+        <p>
+            Although you might be feeling no symptoms or any extreme discomfort despite having close contact with someone who has recently tested positive, you may be assymptomatic. 
+            Being assymptomatic does not mean you are not COVID positive since it is still possible to have COVID without showing any symptoms. To ensure the safety of others, we recommend
+            that you should take precautions and quarantine yourself for at least 14 days. Avoid highly populated places and high-risk areas (mall, restaurants, gym, etc...). 
+        </p>
+        <p>
+            If you feel like your symptoms worsen or if you would prefer to get tested for confirmation, 
+            please Refer to the <i>Getting Tested</i> section for more information.
+        </p>
+        {% else %}
+        <p>
+            If you're worried, that's perfectly normal. Quarantining is not limited to people that are experiencing symptoms so we appreciate that you want to keep others safe!
+        </p>
+        {% endif %}
+    </div>
+    <button class='accordion'> Coping with Stress </button>
+    <div class = 'panel'>
+        <p>
+            <b>Be kind to your mind :)</b> </br>
+            We understand that these are crazy times. Refer to the following link to check out some of our mental-positive tips and advices.
+            <a href="{{url_for('covidTips')}}">Pandemics can be stressful. Learn some coping techniques here.</a> <br />
+        </p>
+    </div>
+
+</div>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+</body>
